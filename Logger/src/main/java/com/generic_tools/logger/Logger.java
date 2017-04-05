@@ -1,5 +1,7 @@
 package com.generic_tools.logger;
 
+import com.generic_tools.environment.Environment;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -7,24 +9,21 @@ import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
 import java.util.Date;
-import javax.annotation.PostConstruct;
-import javax.validation.constraints.NotNull;
-import com.generic_tools.environment.Environment;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 public class Logger {
 	
 	private final String LOG_ENTRY_SUFFIX = ".html";
 	
 	private PrintWriter writer = null;
 
-	@Autowired @NotNull(message = "Internal Error: Failed to get com.dronegcs.gcsis.environment")
 	private Environment environment;
 
+	public Logger(Environment environment) {
+		this.environment = environment;
+		init();
+	}
+
 	private static int called;
-	@PostConstruct
 	private void init() {
 		if (called++ > 1)
 			throw new RuntimeException("Not a Singleton");

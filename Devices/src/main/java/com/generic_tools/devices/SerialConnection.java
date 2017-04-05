@@ -21,5 +21,4 @@ public interface SerialConnection {
 	public Object[] baudList();
 
 	public Object getDefaultBaud();
-
 }

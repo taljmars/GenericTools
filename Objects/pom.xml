@@ -7,7 +7,7 @@
     <parent>
         <artifactId>GenericTools</artifactId>
         <groupId>com.generic_tools</groupId>
-        <version>${myversion}</version>
+        <version>1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

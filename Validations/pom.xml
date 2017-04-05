@@ -7,7 +7,7 @@
     <parent>
         <artifactId>GenericTools</artifactId>
         <groupId>com.generic_tools</groupId>
-        <version>${myversion}</version>
+        <version>1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -16,12 +16,6 @@
     <name>Validations support and validator</name>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>4.3.3.RELEASE</version>
-        </dependency>
 
         <dependency>
             <groupId>org.hibernate</groupId>

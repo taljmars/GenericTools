@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.generic_tools</groupId>
         <artifactId>GenericTools</artifactId>
-        <version>${myversion}</version>
+        <version>1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -16,18 +16,6 @@
     <name>Logger</name>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>5.4.0.Final</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>4.3.3.RELEASE</version>
-        </dependency>
 
         <dependency>
             <groupId>${project.groupId}</groupId>

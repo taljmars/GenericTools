@@ -9,7 +9,6 @@ import java.util.Date;
 /**
  * Created by taljmars on 3/4/17.
  */
-@Component
 public class Environment {
 
     private static final String LOG_MAIN_DIRECTORY = "logs";

@@ -1,11 +1,8 @@
 package com.generic_tools.devices.internal;
 
+import com.generic_tools.devices.SerialConnection;
 import com.generic_tools.logger.Logger;
-import gnu.io.CommPort;
-import gnu.io.CommPortIdentifier;
-import gnu.io.NoSuchPortException;
-import gnu.io.PortInUseException;
-import gnu.io.SerialPort;
+import gnu.io.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,22 +12,12 @@ import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
-import javax.annotation.PostConstruct;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
-
-import com.generic_tools.devices.SerialConnection;
-
 /**
  * TwoWaySerialComm have the ability to send and receive packets using USB serial device.
  * 
  * @author taljmars
  *
  */
-@Component
 public class TwoWaySerialComm implements SerialConnection {
 
 	private String PORT_NAME = null;// = "COM9";
@@ -41,19 +28,14 @@ public class TwoWaySerialComm implements SerialConnection {
 
 	private InputStream in;
 	private OutputStream out;
-	
-	@Autowired @NotNull(message = "Internal Error: Failed to get com.dronegcs.gcsis.logger")
 	private Logger logger;
 
 	private static int called;
 	/**
 	 * Verify it is indeed a singletone 
 	 */
-	@PostConstruct
-	private void init() {
-		if (called++ > 1)
-			throw new RuntimeException("Not a Singletone");
-	}
+
+	public TwoWaySerialComm(Logger logger) {this.logger = logger;}
 
 	@Override
 	public void setBaud(Integer boud) {

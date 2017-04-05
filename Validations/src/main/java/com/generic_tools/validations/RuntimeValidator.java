@@ -1,13 +1,11 @@
 package com.generic_tools.validations;
 
-import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import org.springframework.stereotype.Component;
+import java.util.Set;
 
-@Component
 public class RuntimeValidator {
 	
 	public ValidatorResponse validate(Object obj) {
