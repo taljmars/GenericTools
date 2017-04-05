@@ -13,10 +13,10 @@ public class ValidationTester {
         RuntimeValidator runtimeValidator = new RuntimeValidator();
         ObjectWithName objectWithName = new ObjectWithName();
         objectWithName.setName("Any Name");
-        System.out.println(runtimeValidator.validate(objectWithName));
+        System.out.println(runtimeValidator.validate(objectWithName).getMessage());
 
         objectWithName = new ObjectWithName();
-        System.out.println(runtimeValidator.validate(objectWithName));
+        System.out.println(runtimeValidator.validate(objectWithName).getMessage());
 
         System.out.println("Finish Validator test");
     }

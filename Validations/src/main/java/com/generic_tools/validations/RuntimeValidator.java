@@ -13,7 +13,7 @@ public class RuntimeValidator {
 		Validator validator = factory.getValidator();
 		Set<ConstraintViolation<Object>> constraints = validator.validate(obj);
 		if (constraints.isEmpty()) {
-			return new ValidatorResponse(ValidatorResponse.Status.SUCCESS);
+			return new ValidatorResponse(ValidatorResponse.Status.SUCCESS, "Validated successfully");
 		}
 		
 		String error_messege = "";
@@ -21,6 +21,6 @@ public class RuntimeValidator {
 			error_messege += constraint.getMessage() + "\n";
 		}
 		
-		return new ValidatorResponse(ValidatorResponse.Status.FAILURE, "Runtime validation error:\n" + error_messege);
+		return new ValidatorResponse(ValidatorResponse.Status.FAILURE, error_messege);
 	}
 }

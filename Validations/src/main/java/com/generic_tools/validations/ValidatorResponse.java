@@ -32,6 +32,10 @@ public class ValidatorResponse
         return this.status.equals(Status.SUCCESS);
     }
 
+    public String getMessage() {
+        return message;
+    }
+
     @Override
     public String toString() {
         return "ValidatorResponse{" +
