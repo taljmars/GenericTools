@@ -3,6 +3,8 @@ package com.generic_tools.environment;
 import org.springframework.stereotype.Component;
 import java.io.File;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -59,16 +61,21 @@ public class Environment {
         if (externalBaseDirectory != null && !externalBaseDirectory.isEmpty())
             return new File(externalBaseDirectory);
 
-        File file = new File(Environment.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
-        file = new File(file.getParent().toString());
+        setBaseRunningDirectoryByClass();
+        File file = new File(externalBaseDirectory);
         if (!file.exists())
             throw new RuntimeException("Running directory wasn't found");
 
         return file;
     }
 
-    public void setBaseRunningDirectoryByClass(Class<?> clz) throws URISyntaxException {
-        File file = new File(clz.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
-        externalBaseDirectory = file.getParent().toString();
+    public void setBaseRunningDirectoryByClass() throws URISyntaxException {
+        setBaseRunningDirectoryByClass("UntitledEnvironment");
+    }
+
+    public void setBaseRunningDirectoryByClass(String title) throws URISyntaxException {
+        File file = new File(System.getProperty("user.dir") + DIR_SEPERATOR + title + DIR_SEPERATOR);
+        file.mkdir();
+        externalBaseDirectory = file.toString();
     }
 }
