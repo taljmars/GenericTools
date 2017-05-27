@@ -4,6 +4,7 @@ import com.generic_tools.devices.SerialConnection;
 import com.generic_tools.logger.Logger;
 import gnu.io.*;
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;

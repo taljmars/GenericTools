@@ -18,16 +18,12 @@
     <dependencies>
 
         <!-- https://mvnrepository.com/artifact/org.rxtx/rxtx -->
-        <!--<dependency>-->
-            <!--<groupId>org.rxtx</groupId>-->
-            <!--<artifactId>rxtx</artifactId>-->
-            <!--<version>2.1.7</version>-->
-        <!--</dependency>-->
-
         <dependency>
-            <groupId>RXTXcomm</groupId>
-            <artifactId>RXTXcomm</artifactId>
-            <version>RELEASE</version>
+            <groupId>org.rxtx</groupId>
+            <artifactId>rxtx</artifactId>
+            <version>2.1.7</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../ExtLib/RXTX/Linux32/RXTXcomm.jar</systemPath>
         </dependency>
 
         <dependency>
