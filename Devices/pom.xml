@@ -17,32 +17,40 @@
 
     <dependencies>
 
-        <!-- https://mvnrepository.com/artifact/org.rxtx/rxtx -->
-        <dependency>
-            <groupId>org.rxtx</groupId>
-            <artifactId>rxtx</artifactId>
-            <version>2.1.7</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../ExtLib/RXTX/Linux32/RXTXcomm.jar</systemPath>
-        </dependency>
-
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>Logger</artifactId>
             <version>${myversion}</version>
         </dependency>
 
-        <!-- Private JARS -->
+    <!--</dependencies>-->
 
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>javafx</artifactId>
-            <version>RELEASE</version>
-            <scope>system</scope>
-            <systemPath>${java.home}/../../../../local/jdk1.8.0_121/jre/lib/ext/jfxrt.jar</systemPath>
-        </dependency>
+    <!--<dependencyManagement>-->
+        <!--&lt;!&ndash; Private JARS &ndash;&gt;-->
+        <!--<dependencies>-->
 
-    </dependencies>
+            <dependency>
+                <groupId>com.oracle</groupId>
+                <artifactId>javafx</artifactId>
+                <version>RELEASE</version>
+                <scope>system</scope>
+                <systemPath>${java.home}/../../../../local/jdk1.8.0_121/jre/lib/ext/jfxrt.jar</systemPath>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.rxtx/rxtx -->
+            <dependency>
+                <groupId>org.rxtx</groupId>
+                <artifactId>rxtx</artifactId>
+                <version>2.1.7</version>
+                <scope>system</scope>
+                <systemPath>${project.basedir}/../ExtLib/RXTX/Linux32/RXTXcomm.jar</systemPath>
+            </dependency>
+
+        </dependencies>
+
+    <!--</dependencyManagement>-->
+
+
 
     <build>
         <outputDirectory>../${build.output}/classes/</outputDirectory>
