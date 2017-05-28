@@ -23,10 +23,10 @@
             <version>${myversion}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>javafx</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.oracle</groupId>-->
+            <!--<artifactId>javafx</artifactId>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>RXTXcomm</groupId>
@@ -48,13 +48,13 @@
                 <systemPath>${project.basedir}/../ExtLib/RXTX/Linux32/RXTXcomm.jar</systemPath>
             </dependency>
 
-            <dependency>
-                <groupId>com.oracle</groupId>
-                <artifactId>javafx</artifactId>
-                <version>RELEASE</version>
-                <scope>system</scope>
-                <systemPath>${java.home}/../../../../local/jdk1.8.0_121/jre/lib/ext/jfxrt.jar</systemPath>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>com.oracle</groupId>-->
+                <!--<artifactId>javafx</artifactId>-->
+                <!--<version>RELEASE</version>-->
+                <!--<scope>system</scope>-->
+                <!--<systemPath>${java.home}/../../../../local/jdk1.8.0_121/jre/lib/ext/jfxrt.jar</systemPath>-->
+            <!--</dependency>-->
 
         </dependencies>
 
