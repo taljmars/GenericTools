@@ -23,11 +23,30 @@
             <version>${myversion}</version>
         </dependency>
 
-    <!--</dependencies>-->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>javafx</artifactId>
+        </dependency>
 
-    <!--<dependencyManagement>-->
-        <!--&lt;!&ndash; Private JARS &ndash;&gt;-->
-        <!--<dependencies>-->
+        <dependency>
+            <groupId>RXTXcomm</groupId>
+            <artifactId>RXTXcomm</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <dependencyManagement>
+
+        <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/org.rxtx/rxtx -->
+            <dependency>
+                <groupId>RXTXcomm</groupId>
+                <artifactId>RXTXcomm</artifactId>
+                <version>1.0</version>
+                <scope>system</scope>
+                <systemPath>${project.basedir}/../ExtLib/RXTX/Linux32/RXTXcomm.jar</systemPath>
+            </dependency>
 
             <dependency>
                 <groupId>com.oracle</groupId>
@@ -37,18 +56,9 @@
                 <systemPath>${java.home}/../../../../local/jdk1.8.0_121/jre/lib/ext/jfxrt.jar</systemPath>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/org.rxtx/rxtx -->
-            <dependency>
-                <groupId>org.rxtx</groupId>
-                <artifactId>rxtx</artifactId>
-                <version>2.1.7</version>
-                <scope>system</scope>
-                <systemPath>${project.basedir}/../ExtLib/RXTX/Linux32/RXTXcomm.jar</systemPath>
-            </dependency>
-
         </dependencies>
 
-    <!--</dependencyManagement>-->
+    </dependencyManagement>
 
 
 
