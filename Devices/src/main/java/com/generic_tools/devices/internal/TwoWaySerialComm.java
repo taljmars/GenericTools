@@ -33,7 +33,7 @@ public class TwoWaySerialComm implements SerialConnection {
 
 	private static int called;
 	/**
-	 * Verify it is indeed a singletone 
+	 * Verify it is indeed a singleton
 	 */
 
 	public TwoWaySerialComm(Logger logger) {this.logger = logger;}
@@ -45,7 +45,7 @@ public class TwoWaySerialComm implements SerialConnection {
 
 	@Override
 	public void setPortName(String port_name) {
-		PORT_NAME = port_name.substring(0, port_name.indexOf(" "));;
+		PORT_NAME = port_name.substring(0, port_name.indexOf(" "));
 	}
 
 	/**
@@ -184,7 +184,6 @@ public class TwoWaySerialComm implements SerialConnection {
 	 */
 	public void write(String text) {
 		try {
-
 			if (text != null && this.out != null)
 				this.out.write( (text + "\n").getBytes() );
 		}
@@ -210,14 +209,17 @@ public class TwoWaySerialComm implements SerialConnection {
 	public void write(byte[] buffer) {
 		try {
 			out.write(buffer);
-		} catch (IOException e) {
-			logger.LogErrorMessege("Failed to write messeges");
+		}
+		catch (IOException e) {
+			logger.LogErrorMessege("Failed to write messages");
 			logger.LogErrorMessege(e.getMessage());
+			logger.close();
+			System.exit(-1); //For develop purpose TODO: remove it one stablize
 		}
 	}
 
 	/**
-	 * get available USB port with com.dronegcs.gcsis.devices connected to the machine
+	 * get available USB port with devices connected to the machine
 	 * 
 	 * @return String array of available ports
 	 */
