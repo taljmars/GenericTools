@@ -41,7 +41,7 @@ public class TwoWaySerialComm implements SerialConnection {
 	// Received bps
 	private long lastReadTimestamp = 0;
 	private long bytesSinceLastRead = 0;
-	private long recievedBytesPerSecond = 0;
+	private long receivedBytesPerSecond = 0;
 
 	// Transmitter bps
 	private long lastWriteTimestamp = 0;
@@ -175,8 +175,9 @@ public class TwoWaySerialComm implements SerialConnection {
 			// Statistics
 			bytesSinceLastRead += i;
 			receivedBytes += i;
-			if (lastReadTimestamp - System.currentTimeMillis() > 1000) {
-				recievedBytesPerSecond = bytesSinceLastRead / (lastReadTimestamp - System.currentTimeMillis());
+			if (System.currentTimeMillis() - lastReadTimestamp > 1000) {
+				receivedBytesPerSecond = (long) ((1.0 * bytesSinceLastRead) /
+						((System.currentTimeMillis() - lastReadTimestamp) / 1000));
 				lastReadTimestamp = System.currentTimeMillis();
 				bytesSinceLastRead = 0;
 			}
@@ -238,8 +239,9 @@ public class TwoWaySerialComm implements SerialConnection {
 			// Statistics
 			bytesSinceLastWrite += buffer.length;
 			transmittedBytes += buffer.length;
-			if (lastWriteTimestamp - System.currentTimeMillis() > 1000) {
-				transmittedBytesPerSecond = bytesSinceLastWrite / (lastWriteTimestamp - System.currentTimeMillis());
+			if (System.currentTimeMillis() - lastWriteTimestamp > 1000) {
+				transmittedBytesPerSecond = (long) ((1.0 * bytesSinceLastWrite) /
+							((System.currentTimeMillis() - lastWriteTimestamp) / 1000) );
 				lastWriteTimestamp = System.currentTimeMillis();
 				bytesSinceLastWrite = 0;
 			}
@@ -307,12 +309,12 @@ public class TwoWaySerialComm implements SerialConnection {
 
 	@Override
 	public long getReceivedBytesPerSeconds() {
-		return recievedBytesPerSecond;
+		return receivedBytesPerSecond;
 	}
 
 	@Override
 	public long getTransmittedBytesPerSeconds() {
-		return recievedBytesPerSecond;
+		return transmittedBytesPerSecond;
 	}
 
 	@Override
