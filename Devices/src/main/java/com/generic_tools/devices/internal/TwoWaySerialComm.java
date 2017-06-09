@@ -32,9 +32,21 @@ public class TwoWaySerialComm implements SerialConnection {
 	private Logger logger;
 
 	private static int called;
-	/**
-	 * Verify it is indeed a singleton
-	 */
+
+	/* Collecting statistics */
+	// RX, TX
+	private long receivedBytes = 0;
+	private long transmittedBytes = 0;
+
+	// Received bps
+	private long lastReadTimestamp = 0;
+	private long bytesSinceLastRead = 0;
+	private long recievedBytesPerSecond = 0;
+
+	// Transmitter bps
+	private long lastWriteTimestamp = 0;
+	private long bytesSinceLastWrite = 0;
+	private long transmittedBytesPerSecond = 0;
 
 	public TwoWaySerialComm(Logger logger) {this.logger = logger;}
 
@@ -99,6 +111,9 @@ public class TwoWaySerialComm implements SerialConnection {
 			serialPort.setSerialPortParams( BAUD_RATE, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE );
 			in = serialPort.getInputStream();
 			out = serialPort.getOutputStream();
+
+			// Statistics
+			lastReadTimestamp = lastWriteTimestamp = System.currentTimeMillis();
 		} 
 		else {
 			logger.LogErrorMessege("Port " + portName + " is currently in use");
@@ -149,11 +164,21 @@ public class TwoWaySerialComm implements SerialConnection {
 			int i = 0;
 			int b = '\n';
 
-			while ((b = this.in.read()) != '\n' && b != -1) {
+//			while ((b = this.in.read()) != '\n' && b != -1) {
+			while ((b = this.in.read()) != -1) {
 				if (i == len) {
 					throw new Exception("Buffer Overflow");
 				}
 				readData[i++] = (byte) b;
+			}
+
+			// Statistics
+			bytesSinceLastRead += i;
+			receivedBytes += i;
+			if (lastReadTimestamp - System.currentTimeMillis() > 1000) {
+				recievedBytesPerSecond = bytesSinceLastRead / (lastReadTimestamp - System.currentTimeMillis());
+				lastReadTimestamp = System.currentTimeMillis();
+				bytesSinceLastRead = 0;
 			}
 
 			return i;
@@ -179,7 +204,7 @@ public class TwoWaySerialComm implements SerialConnection {
 
 	/**
 	 * write text byte after byte to the USB device
-	 * 
+	 *
 	 * @param text
 	 */
 	public void write(String text) {
@@ -209,6 +234,15 @@ public class TwoWaySerialComm implements SerialConnection {
 	public void write(byte[] buffer) {
 		try {
 			out.write(buffer);
+
+			// Statistics
+			bytesSinceLastWrite += buffer.length;
+			transmittedBytes += buffer.length;
+			if (lastWriteTimestamp - System.currentTimeMillis() > 1000) {
+				transmittedBytesPerSecond = bytesSinceLastWrite / (lastWriteTimestamp - System.currentTimeMillis());
+				lastWriteTimestamp = System.currentTimeMillis();
+				bytesSinceLastWrite = 0;
+			}
 		}
 		catch (IOException e) {
 			logger.LogErrorMessege("Failed to write messages");
@@ -269,5 +303,25 @@ public class TwoWaySerialComm implements SerialConnection {
 	@Override
 	public Object getDefaultBaud() {
 		return 115200;
+	}
+
+	@Override
+	public long getReceivedBytesPerSeconds() {
+		return recievedBytesPerSecond;
+	}
+
+	@Override
+	public long getTransmittedBytesPerSeconds() {
+		return recievedBytesPerSecond;
+	}
+
+	@Override
+	public long getTx() {
+		return transmittedBytes;
+	}
+
+	@Override
+	public long getRx() {
+		return receivedBytes;
 	}
 }

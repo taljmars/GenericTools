@@ -21,4 +21,16 @@ public interface SerialConnection {
 	public Object[] baudList();
 
 	public Object getDefaultBaud();
+
+	/**
+	 * Statistics
+	 */
+
+	public long getReceivedBytesPerSeconds();
+
+	public long getTransmittedBytesPerSeconds();
+
+	public long getTx();
+
+	public long getRx();
 }
