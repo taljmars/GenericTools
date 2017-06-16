@@ -2,7 +2,7 @@ package com.generic_tools.devices;
 
 public interface SerialConnection {
 	
-	public boolean connect();
+	public boolean connect() throws Exception;
 	
 	public boolean disconnect();
 	
