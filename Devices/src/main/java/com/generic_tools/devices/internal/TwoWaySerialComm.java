@@ -186,18 +186,21 @@ public class TwoWaySerialComm implements SerialConnection {
 		}
 		catch (AccessDeniedException e) {
 			logger.LogErrorMessege("Failed to access device, check connectivity");
-			System.exit(-1);
+			e.printStackTrace();
+			System.exit(-4);
 		}
 		catch (IOException e) {
 			logger.LogErrorMessege("Failed to read from device");
 			logger.close();
-			System.exit(-1);
+			e.printStackTrace();
+			System.exit(-5);
 		}
 		catch (Exception e) {
 			logger.LogErrorMessege("Unexpected Error:");
 			logger.LogErrorMessege(e.getMessage());
 			logger.close();
-			System.exit(-1);
+			e.printStackTrace();
+			System.exit(-6);
 		}
 
 		return -1;
@@ -221,13 +224,15 @@ public class TwoWaySerialComm implements SerialConnection {
 		catch (IOException e) {
 			logger.LogErrorMessege("Failed to write to device");
 			logger.close();
-			System.exit(-1);
+			e.printStackTrace();
+			System.exit(-2);
 		}
 		catch (Exception e) {
 			logger.LogErrorMessege("Unexpected Error:");
 			logger.LogErrorMessege(e.getMessage());
 			logger.close();
-			System.exit(-1);
+			e.printStackTrace();
+			System.exit(-3);
 		}
 	}
 
@@ -250,6 +255,7 @@ public class TwoWaySerialComm implements SerialConnection {
 			logger.LogErrorMessege("Failed to write messages");
 			logger.LogErrorMessege(e.getMessage());
 			logger.close();
+			e.printStackTrace();
 			System.exit(-1); //For develop purpose TODO: remove it one stablize
 		}
 	}
