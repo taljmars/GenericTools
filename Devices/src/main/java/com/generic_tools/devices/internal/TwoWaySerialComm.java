@@ -98,12 +98,12 @@ public class TwoWaySerialComm implements SerialConnection {
 	private boolean connect( String portName ) throws Exception {
 		CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier( portName );
 		if( portIdentifier.isCurrentlyOwned()) {
-			logger.LogErrorMessege("Port is occupied");
+			logger.LogErrorMessege(portName + " is occupied");
 			logger.LogErrorMessege("Port " + portName + " is currently in use");
 			throw new PortInUseException();
 		}
 		else {
-			logger.LogGeneralMessege("Port is free");
+			logger.LogGeneralMessege(portName + " is free");
 		}
 
 		int timeout = 2000;
