@@ -274,7 +274,9 @@ public class TwoWaySerialComm implements SerialConnection {
 	{
 		Enumeration<CommPortIdentifier> portEnum = CommPortIdentifier.getPortIdentifiers();
 		ArrayList<String> ans = new ArrayList<String>();
+		int i = 0;
 		while ( portEnum.hasMoreElements() ) {
+			System.out.println((i++) +"");
 			CommPortIdentifier portIdentifier = portEnum.nextElement();
 			ans.add(portIdentifier.getName()  +  " - " +  getPortTypeName(portIdentifier.getPortType()));
 		}
