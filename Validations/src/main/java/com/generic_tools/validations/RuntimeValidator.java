@@ -20,7 +20,6 @@ public class RuntimeValidator {
 	}
 
 	public ValidatorResponse validate(Object obj) {
-		System.out.println("Validate " + obj);
 		Set<ConstraintViolation<Object>> constraints = validator.validate(obj);
 		if (constraints.isEmpty()) {
 			return new ValidatorResponse(ValidatorResponse.Status.SUCCESS, "Validated successfully");
