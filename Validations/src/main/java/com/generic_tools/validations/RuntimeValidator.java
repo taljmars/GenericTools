@@ -7,10 +7,19 @@ import javax.validation.ValidatorFactory;
 import java.util.Set;
 
 public class RuntimeValidator {
-	
-	public ValidatorResponse validate(Object obj) {
+
+	private Validator validator;
+
+	public RuntimeValidator() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validator = factory.getValidator();
+		validator = factory.getValidator();
+	}
+
+	public void setValidator(Validator validator) {
+		this.validator = validator;
+	}
+
+	public ValidatorResponse validate(Object obj) {
 		Set<ConstraintViolation<Object>> constraints = validator.validate(obj);
 		if (constraints.isEmpty()) {
 			return new ValidatorResponse(ValidatorResponse.Status.SUCCESS, "Validated successfully");
