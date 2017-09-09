@@ -15,7 +15,7 @@
         <module>Validations</module>
         <module>Devices</module>
         <module>Objects</module>
-        <module>JaveWS</module>
+        <module>JavaWS</module>
     </modules>
 
     <properties>
