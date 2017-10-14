@@ -17,6 +17,8 @@ public class Logger {
 	private PrintWriter writer = null;
 
 	private Environment environment;
+	private Level consoleLevel = Level.INFO;
+	private Level level = Level.INFO;
 
 	public Logger(Environment environment) {
 		this.environment = environment;
@@ -64,32 +66,84 @@ public class Logger {
 		writer.println("<h3>Log:</h3>");
 	}
 
-	
+	public enum Level {
+		ERROR,
+		WARNING,
+		DEBUG,
+		INFO,
+		OFF
+	}
+
+	public void setConsoleLevel(Level level) {
+		this.consoleLevel = level;
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
+	}
 
 	int recordNumber = 0;
 	private void log(String str){
+		if (level.equals(Level.OFF))
+			return;
+
 		if (writer == null)
 			return;
 		
 		writer.println(str);
 		recordNumber++;
 	}
-	
+
 	public void LogDesignedMessege(String msg) {
-		log(msg);
+		LogDesignedMessege("%s", msg);
 	}
 	
+	public void LogDesignedMessege(String frmt, Object... args) {
+		String msg = frmt;
+		if (args != null && args.length != 0)
+			msg = String.format(frmt, args);
+		log(msg);
+	}
+
 	public void LogGeneralMessege(String msg) {
-		System.out.println(msg);
+		LogGeneralMessege("%s", msg);
+	}
+	
+	public void LogGeneralMessege(String frmt, Object... args) {
+		if (level.equals(Level.OFF))
+			return;
+
+		String msg = frmt;
+		if (args != null && args.length != 0)
+			msg = String.format(frmt, args);
+		PrintConsole(msg);
 		Date date = new Date();
 		Timestamp ts = new Timestamp(date.getTime());
 		
 		String modmsg = "<font color=\"black\">" + "[" + ts.toString() + "] " + msg + "</font>" + "<br/>";
 		log(modmsg);
 	}
-	
+
+	private void PrintConsole(String msg) {
+		if (consoleLevel.equals(Level.OFF))
+			return;
+
+		if (consoleLevel.compareTo(Level.DEBUG) >= 0)
+			System.out.println(msg);
+	}
+
 	public void LogErrorMessege(String msg) {
-		System.err.println(msg);
+		LogErrorMessege("%s", msg);
+	}
+	
+	public void LogErrorMessege(String frmt, Object... args) {
+		if (level.equals(Level.OFF))
+			return;
+
+		String msg = frmt;
+		if (args != null && args.length != 0)
+			msg = String.format(frmt, args);
+		PrintConsole(msg);
 		Date date = new Date();
 		Timestamp ts = new Timestamp(date.getTime());
 		

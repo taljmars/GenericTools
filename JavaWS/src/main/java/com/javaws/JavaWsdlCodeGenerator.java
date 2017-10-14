@@ -5,13 +5,19 @@ import org.apache.cxf.tools.wsdlto.WSDLToJava;
 
 import java.util.List;
 
-public class JavaToWSCodeGenerator {
+public class JavaWsdlCodeGenerator {
 
-    public static boolean JavaClass2WSDL(String targetDirectory, List<String> classListPaths) {
+    public static boolean JavaClass2WSDL(String sourceDirectory, String targetDirectory, List<String> classListPaths) {
         System.out.println("Start Conversion");
         for (String classPath: classListPaths) {
-            JavaToWS.main(new String[] {"-d", targetDirectory, "-createxsdimports", "-wsdl",
-                    classPath });
+//            JavaToWS.main(new String[] {"-cp", sourceDirectory,"-d", targetDirectory, "-createxsdimports",
+                    JavaToWS.main(new String[] {
+//                            "-createxsdimports",
+//                            "-cp", sourceDirectory,
+                            "-d", targetDirectory,
+                            "-verbose",
+                            "-wsdl",
+                            classPath });
         }
         System.out.println("Finish Conversion");
         return true;
@@ -21,7 +27,11 @@ public class JavaToWSCodeGenerator {
                                          List<String> wsdlListNames) {
         System.out.println("Start Conversion");
         for (String wsdlName: wsdlListNames) {
-            WSDLToJava.main(new String[] {"-d" , classTargetDirectory, wsdlSourceDirectory + "/" + wsdlName});
+            WSDLToJava.main(new String[] {
+                            "-d" , classTargetDirectory,
+                            "-verbose",
+//                            "-noAddressBinding",
+                            wsdlSourceDirectory + "/" + wsdlName});
         }
         System.out.println("Finish Conversion");
         return true;
