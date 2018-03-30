@@ -4,10 +4,11 @@ import java.util.List;
 
 public interface CSV {
 
-	public void addEntry(List<Object> asList);
+	CSV addEntry(List<Object> asList);
 
-	public void open(List<Object> list);
+    CSV addEntries(List<List<Object>> entries);
 
-	public void close();
+    CSV addEmptyLine();
 
+	String getFileName();
 }
