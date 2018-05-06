@@ -23,6 +23,8 @@ public class Tester {
 
         Thread loader = new Thread(() -> {
             res = serialConnection.listPorts();
+            if (res == null || res.length == 0)
+                System.out.println("No port found !");
             flag = true;
         });
         loader.start();
