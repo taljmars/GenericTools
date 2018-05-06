@@ -260,7 +260,7 @@ public class TwoWaySerialComm implements SerialConnection {
 			logger.LogErrorMessege(e.getMessage());
 			logger.close();
 			e.printStackTrace();
-			System.exit(-1); //For develop purpose TODO: remove it one stablize
+			System.exit(-1); //For develop purpose TODO: remove it one stabilize
 		}
 	}
 
@@ -276,7 +276,7 @@ public class TwoWaySerialComm implements SerialConnection {
 		ArrayList<String> ans = new ArrayList<String>();
 		int i = 0;
 		while ( portEnum.hasMoreElements() ) {
-			System.out.println((i++) +"");
+//			System.out.println((i++) + "");
 			CommPortIdentifier portIdentifier = portEnum.nextElement();
 			ans.add(portIdentifier.getName()  +  " - " +  getPortTypeName(portIdentifier.getPortType()));
 		}
@@ -309,13 +309,13 @@ public class TwoWaySerialComm implements SerialConnection {
 	}
 
 	@Override
-	public Object[] baudList() {
-		Object[] oblist = new Object[]{57600, 115200};// Arrays.asList(57600, 115200).toArray();
+	public Integer[] baudList() {
+		Integer[] oblist = new Integer[]{57600, 115200};// Arrays.asList(57600, 115200).toArray();
 		return oblist;
 	}
 
 	@Override
-	public Object getDefaultBaud() {
+	public Integer getDefaultBaud() {
 		return 115200;
 	}
 

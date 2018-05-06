@@ -18,9 +18,9 @@ public interface SerialConnection {
 
 	public void setBaud(Integer baud);
 
-	public Object[] baudList();
+	public Integer[] baudList();
 
-	public Object getDefaultBaud();
+	public Integer getDefaultBaud();
 
 	/**
 	 * Statistics
