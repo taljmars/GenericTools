@@ -194,7 +194,9 @@ public class Logger {
 
 	public static enum Type {
 		GENERAL,
+		SUCCESS,
 		ERROR,
+		WARNING,
 		INCOMING,
 		OUTGOING
 	};
@@ -223,6 +225,9 @@ public class Logger {
 				case GENERAL:
 					newcontent = ("<font color=\"black\">" + ts_string + " " + lines[i] + "</font>" + "<br/>");
 					break;
+				case SUCCESS:
+					newcontent = ("<font color=\"green\">" + ts_string + " " + lines[i] + "</font>" + "<br/>");
+					break;
 				case OUTGOING:
 					newcontent = ("<font color=\"blue\">" + ts_string + " " + lines[i] + "</font>" + "<br/>");
 					break;
@@ -231,6 +236,9 @@ public class Logger {
 					break;
 				case ERROR:
 					newcontent = ("<font color=\"red\">" + ts_string + " " + lines[i] + "</font>" + "<br/>");
+					break;
+				case WARNING:
+					newcontent = ("<font color=\"orange\">" + ts_string + " " + lines[i] + "</font>" + "<br/>");
 					break;
 				default:
 					newcontent = ("<font color=\"red\">" + ts_string + " Unrecognized: " + lines[i] + "</font>" + "<br/>");

@@ -21,6 +21,8 @@ public class Tester {
     Object[] res = {};
     public Object[] load() {
 
+        int interval = 500;
+        double cycles = 0.0;
         Thread loader = new Thread(() -> {
             res = serialConnection.listPorts();
             if (res == null || res.length == 0)
@@ -33,26 +35,32 @@ public class Tester {
         while (!flag) {
             System.out.print("*");
             try {
-                Thread.sleep(500);
+                cycles++;
+                Thread.sleep(interval);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        System.out.print(" ]: Done\n");
+        System.out.print(" ]: Done (Port mapping time: " + (cycles * interval / 1000.0) + " sec)\n");
 
         return res;
     }
 
-    public void run(Object port) throws Exception {
+    public boolean run(Object port) throws Exception {
         serialConnection.setPortName(port.toString());
         serialConnection.setBaud(115200);
-        serialConnection.connect();
+        if (!serialConnection.connect())
+            return false;
 
         Thread w = new Thread(new Writer());
+        System.out.println("Start Sending thread");
         w.start();
 
         Thread r = new Thread(new Reader());
+        System.out.println("Start Receiver thread");
         r.start();
+
+        return true;
     }
 
     class Writer implements Runnable {
@@ -60,12 +68,15 @@ public class Tester {
         @Override
         public void run() {
             do {
+                if (writeQueue.isEmpty())
+                    continue;
                 String val = writeQueue.poll();
                 if (val != null && !val.isEmpty()) {
+                    System.out.println("Sending: " + val);
                     serialConnection.write(val);
                 }
             }
-            while (!writeQueue.isEmpty());
+            while (true);
         }
     }
 
@@ -78,15 +89,16 @@ public class Tester {
                 int len = serialConnection.read(readBuffer, readBuffer.length);
                 for (int i = 0 ; i < len ; i++)
                     System.err.print(readBuffer[i] + ",");
-                System.err.println();
+                if (len > 0)
+                    System.err.println();
             }
         }
     }
 
     public static void main(String[] str ) throws Exception {
 
-        Tester t = new Tester();
-        Object[] ports = t.load();
+        Tester tester = new Tester();
+        Object[] ports = tester.load();
         int portId = 0;
         for (Object port : ports) {
             System.out.println((portId++) + ": " + port);
@@ -98,15 +110,16 @@ public class Tester {
             System.out.print("Choose port number: ");
             portId = reader.nextInt();
             System.out.println();
+            if (!tester.run(ports[portId]))
+                portId = -1;
         }
 
-        t.run(ports[portId]);
 
         while (true) {
             Scanner reader = new Scanner(System.in);  // Reading from System.in
             System.out.print("Write Message: ");
             String msg = reader.next();
-            t.writeQueue.offer(msg);
+            tester.writeQueue.offer(msg);
         }
     }
 }

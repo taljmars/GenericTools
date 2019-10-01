@@ -75,13 +75,16 @@ public class TwoWaySerialComm implements SerialConnection {
 		}
 		catch (NoSuchPortException e) {
 			logger.LogErrorMessege("'" + PORT_NAME + "' port was not found");
+			return false;
 		}
 		catch (PortInUseException e) {
 			logger.LogErrorMessege("'" + PORT_NAME + "' port is in use");
+			return false;
 		}
 		catch (Exception e) {
 			logger.LogErrorMessege("Unexpected Error:");
 			logger.LogErrorMessege(e.getMessage());
+			return false;
 		}
 
 		logger.LogGeneralMessege("Radio communication manager started successfully");
@@ -103,7 +106,7 @@ public class TwoWaySerialComm implements SerialConnection {
 			throw new PortInUseException();
 		}
 		else {
-			logger.LogGeneralMessege(portName + " is free");
+			logger.LogGeneralMessege(portName + " is not occupied by this application");
 		}
 
 		int timeout = 2000;
@@ -169,6 +172,10 @@ public class TwoWaySerialComm implements SerialConnection {
 			int b = '\n';
 
 //			while ((b = this.in.read()) != '\n' && b != -1) {
+			if (this.in == null) {
+//				logger.LogErrorMessege("In stream is not initialized");
+				return 0;
+			}
 			while ((b = this.in.read()) != -1) {
 				if (i == len) {
 					throw new Exception("Buffer Overflow");
@@ -217,6 +224,11 @@ public class TwoWaySerialComm implements SerialConnection {
 	 */
 	public void write(String text) {
 		try {
+			if (this.out == null) {
+				logger.LogErrorMessege("Out stream wan't initialed");
+				return;
+			}
+			System.out.println("Sending: " + text);
 			if (text != null && this.out != null)
 				this.out.write( (text + "\n").getBytes() );
 		}
