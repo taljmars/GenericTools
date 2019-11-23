@@ -178,7 +178,9 @@ public class TwoWaySerialComm implements SerialConnection {
 			}
 			while ((b = this.in.read()) != -1) {
 				if (i == len) {
-					throw new Exception("Buffer Overflow");
+//					throw new Exception("Buffer Overflow");
+					logger.LogErrorMessege("Buffer Overflow [exceeded " + len + " bytes]");
+					break;
 				}
 				readData[i++] = (byte) b;
 			}
