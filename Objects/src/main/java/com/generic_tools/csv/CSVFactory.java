@@ -7,16 +7,37 @@ import java.io.UnsupportedEncodingException;
 
 public class CSVFactory {
 
-    public static CSV createNew(String path) {
+    public enum Mode {
+        READ,
+        WRITE,
+        APPEND
+    }
+
+    public static CSV open(String path, Mode mode) {
         CSVImpl csvI = null;
         try {
             File csvFile = new File(path);
             File csvDir = csvFile.getParentFile();
-            if (!csvDir.exists())
+            if (!csvDir.exists()) {
+                if (mode != Mode.READ)
+                    throw new FileNotFoundException("File doesn't exist");
+
                 csvDir.mkdir();
+            }
 
             csvI = new CSVImpl(path);
-            csvI.open();
+            switch (mode) {
+                case READ:
+                    csvI.openRead();
+                    break;
+                case WRITE:
+                    csvI.openWriteNew();
+                    break;
+                case APPEND:
+                    csvI.openWriteAppend();
+                    break;
+            }
+
             return csvI;
         }
         catch (FileNotFoundException e) {
@@ -31,6 +52,8 @@ public class CSVFactory {
     }
 
     public static void closeFile(CSV csv) {
+        if (csv == null)
+            return;
         CSVImpl csv1 = (CSVImpl) csv;
         csv1.close();
     }
