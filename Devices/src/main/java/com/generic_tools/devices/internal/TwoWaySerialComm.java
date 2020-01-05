@@ -352,4 +352,20 @@ public class TwoWaySerialComm implements SerialConnection {
 	public long getRx() {
 		return receivedBytes;
 	}
+
+	@Override
+	public void resetCounters() {
+		receivedBytes = 0;
+		transmittedBytes = 0;
+
+		// Received bps
+		lastReadTimestamp = 0;
+		bytesSinceLastRead = 0;
+		receivedBytesPerSecond = 0;
+
+		// Transmitter bps
+		lastWriteTimestamp = 0;
+		bytesSinceLastWrite = 0;
+		transmittedBytesPerSecond = 0;
+	}
 }

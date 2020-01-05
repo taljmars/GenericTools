@@ -2,35 +2,37 @@ package com.generic_tools.devices;
 
 public interface SerialConnection {
 	
-	public boolean connect() throws Exception;
+	boolean connect() throws Exception;
 	
-	public boolean disconnect();
+	boolean disconnect();
 	
-	public Object[] listPorts();
+	Object[] listPorts();
 
-	public void write(String val);
+	void write(String val);
 
-	public void write(byte[] buffer);
+	void write(byte[] buffer);
 
-	public int read(byte[] readData, int length);
+	int read(byte[] readData, int length);
 
-	public void setPortName(String port_name);
+	void setPortName(String port_name);
 
-	public void setBaud(Integer baud);
+	void setBaud(Integer baud);
 
-	public Integer[] baudList();
+	Integer[] baudList();
 
-	public Integer getDefaultBaud();
+	Integer getDefaultBaud();
 
 	/**
 	 * Statistics
 	 */
 
-	public long getReceivedBytesPerSeconds();
+	long getReceivedBytesPerSeconds();
 
-	public long getTransmittedBytesPerSeconds();
+	long getTransmittedBytesPerSeconds();
 
-	public long getTx();
+	long getTx();
 
-	public long getRx();
+	long getRx();
+
+	void resetCounters();
 }
