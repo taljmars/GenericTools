@@ -72,6 +72,8 @@ public class TwoWaySerialComm implements SerialConnection {
 
 			if (!connect(PORT_NAME))
 				return false;
+
+			resetCounters();
 		}
 		catch (NoSuchPortException e) {
 			logger.LogErrorMessege("'" + PORT_NAME + "' port was not found");
