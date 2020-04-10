@@ -240,7 +240,7 @@ public class TwoWaySerialCommJSSC implements SerialConnection, SerialPortEventLi
 	{
 		String[] portNames = SerialPortList.getPortNames();
 		for(int i = 0; i < portNames.length; i++){
-			System.out.println(portNames[i]);
+			System.out.println("Port Name " + portNames[i]);
 		}
 
 		return portNames;
@@ -299,7 +299,7 @@ public class TwoWaySerialCommJSSC implements SerialConnection, SerialPortEventLi
 		if(event.isRXCHAR()){//If data is available
 			try {
 				byte buffer[] = serialPort.readBytes();//10);
-				System.out.println(buffer.length);
+				System.out.println("Len " + buffer.length);
 			}
 			catch (SerialPortException e) {
 				e.printStackTrace();

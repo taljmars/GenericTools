@@ -47,7 +47,7 @@ public class JSONHelper {
 	      ans = new JSONObject();
 	      JSONParser k = new JSONParser();
 	      ans = (JSONObject) k.parse(response.toString());
-	      System.out.println(ans.toJSONString());
+	      System.out.println("Json output\n" + ans.toJSONString());
 
 	    } catch (Exception e) {
 
