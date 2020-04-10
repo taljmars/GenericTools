@@ -115,6 +115,7 @@ public class TwoWaySerialComm implements SerialConnection {
 		CommPort commPort = portIdentifier.open( this.getClass().getName(), timeout );
 
 		if( commPort instanceof SerialPort ) {
+			System.out.println("Going to connect to port '" + PORT_NAME + "' with baud rate '" + BAUD_RATE + "'");
 			logger.LogDesignedMessege("Going to connect to port '" + PORT_NAME + "' with baud rate '" + BAUD_RATE + "'");
 			serialPort = ( SerialPort )commPort;
 			serialPort.setSerialPortParams( BAUD_RATE, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE );
@@ -309,14 +310,14 @@ public class TwoWaySerialComm implements SerialConnection {
 	{
 		switch ( portType )
 		{
-		case CommPortIdentifier.PORT_I2C:
-			return "I2C";
-		case CommPortIdentifier.PORT_PARALLEL:
-			return "Parallel";
-		case CommPortIdentifier.PORT_RAW:
-			return "Raw";
-		case CommPortIdentifier.PORT_RS485:
-			return "RS485";
+//		case CommPortIdentifier.PORT_I2C:
+//			return "I2C";
+//		case CommPortIdentifier.PORT_PARALLEL:
+//			return "Parallel";
+//		case CommPortIdentifier.PORT_RAW:
+//			return "Raw";
+//		case CommPortIdentifier.PORT_RS485:
+//			return "RS485";
 		case CommPortIdentifier.PORT_SERIAL:
 			return "Serial";
 		default:

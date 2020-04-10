@@ -1,6 +1,6 @@
 package com.generic_tools.devices;
 
-import com.generic_tools.devices.internal.TwoWaySerialComm;
+import com.generic_tools.devices.internal.TwoWaySerialCommJSSC;
 import com.generic_tools.environment.Environment;
 import com.generic_tools.logger.Logger;
 
@@ -14,7 +14,9 @@ public class Tester {
     private ConcurrentLinkedQueue<String> writeQueue;
 
     public Tester() {
-        serialConnection = new TwoWaySerialComm(new Logger(new Environment()));
+//        serialConnection = new TwoWaySerialCommNG(new Logger(new Environment()));
+//        serialConnection = new TwoWaySerialComm(new Logger(new Environment()));
+        serialConnection = new TwoWaySerialCommJSSC(new Logger(new Environment()));
         writeQueue = new ConcurrentLinkedQueue<>();
     }
 
@@ -48,7 +50,8 @@ public class Tester {
 
     public boolean run(Object port) throws Exception {
         serialConnection.setPortName(port.toString());
-        serialConnection.setBaud(115200);
+//        serialConnection.setBaud(115200);
+        serialConnection.setBaud(57600);
         if (!serialConnection.connect())
             return false;
 
@@ -84,8 +87,8 @@ public class Tester {
 
         @Override
         public void run() {
+            final byte[] readBuffer = new byte[4096 * 8];
             while (true) {
-                final byte[] readBuffer = new byte[4096 * 8];
                 int len = serialConnection.read(readBuffer, readBuffer.length);
                 for (int i = 0 ; i < len ; i++)
                     System.err.print(readBuffer[i] + ",");
