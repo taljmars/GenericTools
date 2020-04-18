@@ -36,6 +36,7 @@ public class TwoWaySerialCommJSSC implements SerialConnection, SerialPortEventLi
 	private long lastWriteTimestamp = 0;
 	private long bytesSinceLastWrite = 0;
 	private long transmittedBytesPerSecond = 0;
+	private boolean connected = false;
 
 
 	public TwoWaySerialCommJSSC(Logger logger) {
@@ -48,11 +49,21 @@ public class TwoWaySerialCommJSSC implements SerialConnection, SerialPortEventLi
 	}
 
 	@Override
+	public Integer getBaud() {
+		return BAUD_RATE;
+	}
+
+	@Override
 	public void setPortName(String port_name) {
 		if (port_name.contains(" "))
 			PORT_NAME = port_name.substring(0, port_name.indexOf(" "));
 		else
 			PORT_NAME = port_name;
+	}
+
+	@Override
+	public String getPortName() {
+		return PORT_NAME;
 	}
 
 	/**
@@ -112,13 +123,14 @@ public class TwoWaySerialCommJSSC implements SerialConnection, SerialPortEventLi
 //            serialPort.setEventsMask(mask);//Set mask
 //		serialPort.addEventListener(this);//Add SerialPortEventListener
 
-
+		this.connected = true;
 		return true;
 	}
 
 	@Override
 	public boolean disconnect() {
 		try {
+			this.connected = false;
 			logger.LogErrorMessege("Disconnected");
 			return serialPort.closePort();
 		}
@@ -127,6 +139,11 @@ public class TwoWaySerialCommJSSC implements SerialConnection, SerialPortEventLi
 			logger.LogErrorMessege(e.getMessage());
 			return false;
 		}
+	}
+
+	@Override
+	public boolean isConnect() {
+		return connected;
 	}
 
 	/**

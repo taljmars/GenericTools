@@ -48,6 +48,8 @@ public class TwoWaySerialComm implements SerialConnection {
 	private long bytesSinceLastWrite = 0;
 	private long transmittedBytesPerSecond = 0;
 
+	private boolean connected = false;
+
 	public TwoWaySerialComm(Logger logger) {this.logger = logger;}
 
 	@Override
@@ -56,8 +58,18 @@ public class TwoWaySerialComm implements SerialConnection {
 	}
 
 	@Override
+	public Integer getBaud() {
+		return BAUD_RATE;
+	}
+
+	@Override
 	public void setPortName(String port_name) {
 		PORT_NAME = port_name.substring(0, port_name.indexOf(" "));
+	}
+
+	@Override
+	public String getPortName() {
+		return PORT_NAME;
 	}
 
 	/**
@@ -131,6 +143,8 @@ public class TwoWaySerialComm implements SerialConnection {
 			throw new PortUnreachableException("Only serial ports are handled");
 		}
 
+		this.connected = true;
+
 		return true;
 	}
 
@@ -138,6 +152,7 @@ public class TwoWaySerialComm implements SerialConnection {
 	public boolean disconnect() {
 		try {
 			logger.LogErrorMessege("Disconnected");
+			this.connected = false;
 			if (out != null)
 				out.close();
 			out = null;
@@ -160,6 +175,11 @@ public class TwoWaySerialComm implements SerialConnection {
 			logger.LogErrorMessege(e.getMessage());
 			return false;
 		}
+	}
+
+	@Override
+	public boolean isConnect() {
+		return connected;
 	}
 
 	/**

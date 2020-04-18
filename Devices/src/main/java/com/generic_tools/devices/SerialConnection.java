@@ -5,6 +5,8 @@ public interface SerialConnection {
 	boolean connect() throws Exception;
 	
 	boolean disconnect();
+
+	boolean isConnect();
 	
 	Object[] listPorts();
 
@@ -16,7 +18,11 @@ public interface SerialConnection {
 
 	void setPortName(String port_name);
 
+	String getPortName();
+
 	void setBaud(Integer baud);
+
+	Integer getBaud();
 
 	Integer[] baudList();
 
