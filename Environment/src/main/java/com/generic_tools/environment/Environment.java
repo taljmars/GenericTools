@@ -21,7 +21,14 @@ public class Environment {
 
     private static Date dateTimestemp = new Date();
 
-    private static String externalBaseDirectory;
+    private String externalBaseDirectory;
+
+    public Environment() {
+    }
+
+    public Environment(String externalBaseDirectory) {
+        this.externalBaseDirectory = externalBaseDirectory;
+    }
 
     public File getRunningEnvLogDirectory() throws URISyntaxException {
         File file = getRunningEnvBaseDirectory();
